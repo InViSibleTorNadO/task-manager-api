@@ -1,0 +1,172 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Container to hold the to-do list and input form */
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* Flexbox layout for task input field */
+input[type="text"] {
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #4e92b1;
+}
+
+button {
+  padding: 12px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #4e92b1;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3a7b96;
+}
+
+/* Flexbox layout for the task list */
+ul#taskList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Task list items */
+ul#taskList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+ul#taskList li:hover {
+  background-color: #f0f4f8;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+ul#taskList li span {
+  font-size: 1rem;
+  color: #333;
+  flex-grow: 1;
+  text-align: left;
+  transition: text-decoration 0.3s ease;
+}
+
+ul#taskList li span[style*="line-through"] {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Button group inside the task item */
+ul#taskList li div {
+  display: flex;
+  gap: 8px;
+}
+
+ul#taskList li div button {
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+ul#taskList li div button:first-child {
+  background-color: #58b89f;
+  color: white;
+  border: none;
+}
+
+ul#taskList li div button:first-child:hover {
+  background-color: #4d9c8d;
+}
+
+ul#taskList li div button:last-child {
+  background-color: #ff5c5c;
+  color: white;
+  border: none;
+}
+
+ul#taskList li div button:last-child:hover {
+  background-color: #e24d4d;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 500px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.95rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+
+  ul#taskList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  ul#taskList li div {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  ul#taskList li div button {
+    width: 100%;
+    padding: 10px;
+  }
+}

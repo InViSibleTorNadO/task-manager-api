@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <!-- Link to your external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>📝 To-Do List</h1>
+  
+  <!-- Input field to add tasks -->
+  <input type="text" id="taskInput" placeholder="Add a new task">
+  <button onclick="addTask()">Add</button>
+  
+  <!-- List of tasks -->
+  <ul id="taskList"></ul>
+
+  <script>
+    const API_URL = 'http://localhost:3000/tasks';
+
+    // Fetch and display tasks from the server
+    async function fetchTasks() {
+      const res = await fetch(API_URL);
+      const tasks = await res.json();
+      const list = document.getElementById('taskList');
+      list.innerHTML = '';
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span style="${task.completed ? 'text-decoration: line-through;' : ''}">
+            ${task.text}
+          </span>
+          <div>
+            <button onclick="toggleComplete(${task.id}, ${task.completed})">
+              ${task.completed ? 'Undo' : 'Done'}
+            </button>
+            <button onclick="deleteTask(${task.id})">Delete</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    // Add a new task to the list
+    async function addTask() {
+      const input = document.getElementById('taskInput');
+      const text = input.value.trim();
+      if (!text) return;
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      input.value = ''; // Clear input field after adding
+      fetchTasks(); // Reload tasks
+    }
+
+    // Mark a task as completed or undo the completion
+    async function toggleComplete(id, currentStatus) {
+      await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: !currentStatus })
+      });
+      fetchTasks(); // Reload tasks
+    }
+
+    // Delete a task
+    async function deleteTask(id) {
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      fetchTasks(); // Reload tasks
+    }
+
+    // Load tasks on page load
+    fetchTasks();
+  </script>
+</body>
+</html>
